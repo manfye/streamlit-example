@@ -103,7 +103,7 @@ if uploaded_file_1 is not None:
         csv = convert_df(final_csv)
 
         st.download_button(
-        "Press to Download",
+        "Download AeFI Overall",
         csv,
         "aefi_overall_"+str(x.strftime("%Y-%m-%d"))+".csv",
         "text/csv",
@@ -142,7 +142,7 @@ if uploaded_file is not None:
     csv = convert_df(df_dateVaccine)
 
     st.download_button(
-    "Press to Download",
+    "Download AeFI Serious",
     csv,
     "aefi_serious_"+str(x.strftime("%Y-%m-%d"))+".csv",
     "text/csv",
