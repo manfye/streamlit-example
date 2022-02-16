@@ -135,6 +135,10 @@ if uploaded_file is not None:
     # except:
     #   
     # df_dateVaccine.to_csv("generated/"+"aefi_serious_"+str(x.strftime("%Y-%m-%d"))+".csv", index= False)
+
+    categoryVaccine = df_dateVaccine["vaccine"].unique()
+    # df_dateVaccine[df_dateVaccine["vaccine"]==categoryVaccine[0]]
+    
     def convert_df(df):
         return df.to_csv(index=False).encode('utf-8')
 
