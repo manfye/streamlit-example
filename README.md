@@ -6,5 +6,5 @@ If you have any questions, checkout our [documentation](https://docs.streamlit.i
 forums](https://discuss.streamlit.io).
 
 
-
+cd C:\Users\manfye\Documents\GitHub\streamlit-example
 py -m streamlit run streamlit_app.py

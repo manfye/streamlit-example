@@ -47,7 +47,7 @@ if uploaded_file_1 is not None:
         df_merged_raw["date"] = df_merged_raw["date"].dt.strftime('%Y-%m-%d').astype('datetime64[ns]')
 
 
-        df_merged_raw["mysj_total"] = df_merged_raw["DOSE1_AEFI_REPORTED_YES"] + df_merged_raw["DOSE2_AEFI_REPORTED_YES"]
+        df_merged_raw["mysj_total"] = df_merged_raw["DOSE1_AEFI_REPORTED_YES"] + df_merged_raw["DOSE2_AEFI_REPORTED_YES"] + df_merged_raw["BOOSTER1_AEFI_REPORTED_YES"]
 
 
         df_merged_raw["non_serious_daily"] = df_merged_raw["R-Harian"] + df_merged_raw["mysj_total"]
@@ -56,7 +56,7 @@ if uploaded_file_1 is not None:
         df_merged_raw["total_daily"] = df_merged_raw["serious_daily"] + df_merged_raw["non_serious_daily"]
 
 
-        df_merged_raw.columns
+        # df_merged_raw.columns
 
         final_csv = df_merged_raw.reindex(['date', 'Vaccine','non_serious_daily',"serious_daily","total_daily", 'non_serious_NPRA_daily',
                                         'DOSE1_AEFI_REPORTED_YES', 'DOSE1_INJECTION_SITE_PAIN_1',
@@ -68,7 +68,9 @@ if uploaded_file_1 is not None:
                                         'DOSE2_INJECTION SITE SWELLING', 'DOSE2_INJECTION SITE REDNESS',
                                         'DOSE2_TIREDNESS', 'DOSE2_HEADACHE', 'DOSE2_MUSCLE_PAIN',
                                         'DOSE2_JOINT PAIN', 'DOSE2_BODY WEAKNESS', 'DOSE2_FEVER',
-                                        'DOSE2_VOMITING', 'DOSE2_CHILLS',"DOSE2_SKIN_RASH"], axis="columns")
+                                        'DOSE2_VOMITING', 'DOSE2_CHILLS',"DOSE2_SKIN_RASH","BOOSTER1_AEFI_REPORTED_YES",
+                                        "BOOSTER1_HEADACHE","BOOSTER1_MUSCLE_PAIN","BOOSTER1_JOINT PAIN","BOOSTER1_BODY WEAKNESS",
+                                        "BOOSTER1_FEVER","BOOSTER1_VOMITING","BOOSTER1_CHILLS","BOOSTER1_SKIN_RASH"], axis="columns")
 
 
         final_csv[['non_serious_daily',"serious_daily","total_daily",
@@ -81,7 +83,9 @@ if uploaded_file_1 is not None:
                                         'DOSE2_INJECTION SITE SWELLING', 'DOSE2_INJECTION SITE REDNESS',
                                         'DOSE2_TIREDNESS', 'DOSE2_HEADACHE', 'DOSE2_MUSCLE_PAIN',
                                         'DOSE2_JOINT PAIN', 'DOSE2_BODY WEAKNESS', 'DOSE2_FEVER',
-                                        'DOSE2_VOMITING', 'DOSE2_CHILLS',"DOSE2_SKIN_RASH", 'non_serious_NPRA_daily']] = final_csv[['non_serious_daily',"serious_daily","total_daily",
+                                        'DOSE2_VOMITING', 'DOSE2_CHILLS',"DOSE2_SKIN_RASH","BOOSTER1_AEFI_REPORTED_YES",
+                                        "BOOSTER1_HEADACHE","BOOSTER1_MUSCLE_PAIN","BOOSTER1_JOINT PAIN","BOOSTER1_BODY WEAKNESS",
+                                        "BOOSTER1_FEVER","BOOSTER1_VOMITING","BOOSTER1_CHILLS","BOOSTER1_SKIN_RASH", 'non_serious_NPRA_daily']] = final_csv[['non_serious_daily',"serious_daily","total_daily",
                                         'DOSE1_AEFI_REPORTED_YES', 'DOSE1_INJECTION_SITE_PAIN_1',
                                         'DOSE1_INJECTION SITE SWELLING', 'DOSE1_INJECTION SITE REDNESS',
                                         'DOSE1_TIREDNESS', 'DOSE1_HEADACHE', 'DOSE1_MUSCLE_PAIN',
@@ -91,8 +95,11 @@ if uploaded_file_1 is not None:
                                         'DOSE2_INJECTION SITE SWELLING', 'DOSE2_INJECTION SITE REDNESS',
                                         'DOSE2_TIREDNESS', 'DOSE2_HEADACHE', 'DOSE2_MUSCLE_PAIN',
                                         'DOSE2_JOINT PAIN', 'DOSE2_BODY WEAKNESS', 'DOSE2_FEVER',
-                                        'DOSE2_VOMITING', 'DOSE2_CHILLS',"DOSE2_SKIN_RASH", 'non_serious_NPRA_daily']].astype(int)
+                                        'DOSE2_VOMITING', 'DOSE2_CHILLS',"DOSE2_SKIN_RASH", "BOOSTER1_AEFI_REPORTED_YES",
+                                        "BOOSTER1_HEADACHE","BOOSTER1_MUSCLE_PAIN","BOOSTER1_JOINT PAIN","BOOSTER1_BODY WEAKNESS",
+                                        "BOOSTER1_FEVER","BOOSTER1_VOMITING","BOOSTER1_CHILLS","BOOSTER1_SKIN_RASH",'non_serious_NPRA_daily']].astype(int)
 
+        st.write(final_csv.tail(50))
 
 
         # final_csv.to_csv("generated/"+"aefi_overall_"+str(x.strftime("%Y-%m-%d"))+".csv", index= False)
