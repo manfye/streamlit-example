@@ -7,16 +7,27 @@ from openpyxl import load_workbook
 st.title("AeFI Daily File maker")
 uploaded_file_1 = st.file_uploader("Excel File")
 if uploaded_file_1 is not None:
-    uploaded_file_2 = st.file_uploader("CSV File")
+    uploaded_file_2 = st.file_uploader("CSV File, Accepted date format: 26/2/2021, 26-2-2021")
     if uploaded_file_2 is not None:
         x = datetime.datetime.now()
         df_dateVaccine = pd.read_csv(uploaded_file_2)
         xl = pd.ExcelFile(uploaded_file_1)
         xl.sheet_names
-        try:
-            df_dateVaccine["date"] = df_dateVaccine.apply(lambda x: datetime.datetime.strptime(x["date"], '%d/%m/%y'), axis=1)
-        except:
-            df_dateVaccine["date"] = df_dateVaccine.apply(lambda x: datetime.datetime.strptime(x["date"], '%d-%m-%y'), axis=1)
+        
+        if df_dateVaccine["date"][0].find("/") == 2:
+                formatDate = '%d/%m/%Y'
+        else:
+                formatDate = '%d-%m-%Y'
+
+
+        def returnDate(date):
+            try:
+                return datetime.datetime.strptime(date,formatDate)
+            except:
+                st.write(date)
+
+
+        df_dateVaccine["date"] = df_dateVaccine.apply(lambda x: returnDate(x["date"]), axis=1)
 
         df_aefi_raw_Comirnaty = pd.read_excel(xl, sheet_name=xl.sheet_names[0])
 
@@ -32,6 +43,7 @@ if uploaded_file_1 is not None:
 
         df_aefi_raw_all = df_aefi_raw_Comirnaty.append([df_aefi_raw_CoronaVac,df_aefi_raw_Az,df_aefi_raw_Cansino,df_aefi_raw_Covilo])
         # st.write(df_aefi_raw_all)
+
         df_aefi_raw_all["date"] = df_aefi_raw_all["date"].dt.strftime('%Y-%m-%d').astype('datetime64[ns]')
 
 
